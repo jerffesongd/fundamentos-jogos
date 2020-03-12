@@ -1,19 +1,24 @@
 extends Sprite
 
-var speed_x = 100
-var speed_y = 100
+export var speed_x = 100
+export var speed_y = 100
+
+var direction_y = 1
+var direction_x = 1
+
+const HALF_SIZE = 15
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_pressed("ui_left"):
-		position.x -= speed_x * delta
 	
-	if Input.is_action_pressed("ui_right"):
-		position.x += speed_x * delta
+	var viewPort = get_viewport_rect()
 	
-	if Input.is_action_pressed("ui_up"):
-		position.y -= speed_y * delta
+	if position.y + HALF_SIZE >= viewPort.size.y:
+		direction_y *= -1
+	elif position.y - HALF_SIZE <= 0:
+		direction_y *= -1
+		
+	position.y = position.y - speed_y * delta * direction_y	
+	position.x = position.x - speed_x * delta * direction_x
 	
-	if Input.is_action_pressed("ui_down"):
-		position.y += speed_y * delta
 	
