@@ -8,6 +8,9 @@ var direction_x = 1
 
 const HALF_SIZE = 15
 
+func _ready():
+	$BallArea.connect("area_entered", self, "hit")
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
@@ -21,4 +24,8 @@ func _process(delta):
 	position.y = position.y - speed_y * delta * direction_y	
 	position.x = position.x - speed_x * delta * direction_x
 	
+	
+	
+func hit(object):
+	direction_x *= -1       
 	
